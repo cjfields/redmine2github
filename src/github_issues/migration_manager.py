@@ -7,6 +7,7 @@ if __name__=='__main__':
 import time
 import re
 import json
+import pypandoc
 from settings.base import get_github_auth, REDMINE_ISSUES_DIRECTORY, USER_MAP_FILE, LABEL_MAP_FILE, MILESTONE_MAP_FILE, REDMINE_TO_GITHUB_MAP_FILE
 
 
@@ -201,21 +202,32 @@ class MigrationManager:
             if github_issue_number:
                 mapping_dict.update({ redmine_issue_num : github_issue_number})
                 self.save_dict_to_file(mapping_dict)
-        
-            if issue_cnt % 50 == 0:
-                msgt('sleep 1 seconds....')
-                time.sleep(1)
 
 if __name__=='__main__':
-    json_input_directory = os.path.join(REDMINE_ISSUES_DIRECTORY, '2014-1224')
+    json_input_directory = os.path.join(REDMINE_ISSUES_DIRECTORY, '2015-0714')
 
+    # Issues with problems transferring: 2018 (works on restart), 2074, 2278
+
+    # transfer 1-2017
+    # 2018
+    # 2019-2073
+    # 2074
+    # 2075-2212
+    # 2213
+    # 2214-2278
+    # 2279-2364
+    # 2365
+    # 2366-2383
+    # 2384
+    # 2385-2475
+    
     kwargs = dict(include_comments=True\
-                , redmine_issue_start_number=1\
-                , redmine_issue_end_number=5000\
-                #, user_mapping_filename=USER_MAP_FILE       # optional
+                , redmine_issue_start_number=1 \
+                , redmine_issue_end_number=4000 \
+                , user_mapping_filename=USER_MAP_FILE       # optional
                 , include_assignee=False    # Optional. Assignee must be in the github repo and USER_MAP_FILE above
                 , label_mapping_filename=LABEL_MAP_FILE     # optional
-                #, milestone_mapping_filename=MILESTONE_MAP_FILE # optional
+                , milestone_mapping_filename=MILESTONE_MAP_FILE # optional
             )
     mm = MigrationManager(json_input_directory\
                             , REDMINE_TO_GITHUB_MAP_FILE\
