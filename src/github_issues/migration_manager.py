@@ -7,9 +7,7 @@ if __name__=='__main__':
 import time
 import re
 import json
-import pypandoc
 from settings.base import get_github_auth, REDMINE_ISSUES_DIRECTORY, USER_MAP_FILE, LABEL_MAP_FILE, MILESTONE_MAP_FILE, REDMINE_TO_GITHUB_MAP_FILE
-
 
 from github_issues.user_map_helper import UserMapHelper
 from github_issues.github_issue_maker import GithubIssueMaker
@@ -222,11 +220,11 @@ if __name__=='__main__':
     # 2385-2475
     
     kwargs = dict(include_comments=True\
-                , redmine_issue_start_number=1 \
-                , redmine_issue_end_number=4000 \
+                , redmine_issue_start_number=2474 \
+                , redmine_issue_end_number=2474 \
                 , user_mapping_filename=USER_MAP_FILE       # optional
                 , include_assignee=False    # Optional. Assignee must be in the github repo and USER_MAP_FILE above
-                , label_mapping_filename=LABEL_MAP_FILE     # optional
+                # , label_mapping_filename=LABEL_MAP_FILE     # optional
                 , milestone_mapping_filename=MILESTONE_MAP_FILE # optional
             )
     mm = MigrationManager(json_input_directory\
