@@ -221,7 +221,7 @@ if __name__=='__main__':
     # 2385-2475
     
     kwargs = dict(include_comments=True\
-                , redmine_issue_start_number=2474 \
+                , redmine_issue_start_number=1 \
                 , redmine_issue_end_number=2474 \
                 , user_mapping_filename=USER_MAP_FILE       # optional
                 , include_assignee=False    # Optional. Assignee must be in the github repo and USER_MAP_FILE above
