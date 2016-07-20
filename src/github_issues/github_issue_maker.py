@@ -356,7 +356,12 @@ class GithubIssueMaker:
         # (3) Create the issue on github
         #
 
-        issue_obj = self.get_github_conn().issues.create(github_issue_dict)
+        issue_obj = None
+        try:
+            issue_obj = self.get_github_conn().issues.create(github_issue_dict)
+        except requests.exceptions.HTTPError as e:
+            msgt('Error creating issue: %s' % e.message)
+        
         #issue_obj = self.get_github_conn().issues.update(151, github_issue_dict)
 
         msgt('Github issue created: %s' % issue_obj.number)
@@ -438,6 +443,7 @@ class GithubIssueMaker:
             try:
                 comment_obj = self.get_comments_service().create(issue_num, comment_info)
             except requests.exceptions.HTTPError as e:
+                # do we keep on going here or stop?
                 msgt('Error creating comment: %s' % e.message)
                 continue
 
